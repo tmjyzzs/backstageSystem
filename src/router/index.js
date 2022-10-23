@@ -6,6 +6,7 @@ import Main from '../views/Main.vue'
 import Mall from "../views/Mall.vue"
 import PageOne from "../views/PageOne.vue"
 import PageTwo from "../views/PageTwo.vue"
+import Login from "../views/Login.vue"
 
 Vue.use(VueRouter)
 //1.创建路由组件
@@ -16,7 +17,8 @@ const routes = [
         //主路由
         path:'/',
         component:Main,
-        redirect:'/home',//重定向
+        //redirect:'/home',//重定向
+        name:'Main',
         children:[
             //子路由
             {path:'home',component:Home},//首页
@@ -25,6 +27,11 @@ const routes = [
             {path:'page1',component:PageOne},//商品管理
             {path:'page2',component:PageTwo},//商品管理
         ]
+    },
+    {
+        path:'/login',  
+        name:'login',
+        component:Login
     }
     
 ]
