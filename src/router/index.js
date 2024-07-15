@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 
+
 Vue.use(VueRouter)
 //1.创建路由组件
 //2.引入路由组件
