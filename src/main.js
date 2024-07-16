@@ -13,6 +13,11 @@ Vue.config.productionTip = false
 //全局引入饿了吗UI
 Vue.use(ElementUI)
 
+//测试
+import { testReqtest } from '@/api/index.js'
+
+testReqtest()
+
 
 
 new Vue({
