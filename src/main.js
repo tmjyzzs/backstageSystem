@@ -13,10 +13,10 @@ Vue.config.productionTip = false
 //全局引入饿了吗UI
 Vue.use(ElementUI)
 
-//测试
-import { testReqtest } from '@/api/index.js'
+// 全局组件
+import typeNav from "./components/typeNav"
+Vue.component(typeNav.name,typeNav)
 
-testReqtest()
 
 
 
