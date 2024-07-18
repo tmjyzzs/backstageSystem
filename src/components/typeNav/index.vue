@@ -15,12 +15,14 @@
             </nav>
             <div class="sort">
                 <div class="all-sort-list2">
-                    <div class="item" v-for="(c1, index) in categoryList" :key="c1.categoryId">
-                        <h3>
+                    <div class="item" v-for="(c1, index) in categoryList" :key="c1.categoryId"
+                        :class="{ cut: mouseIndex == index }">
+                        <h3 @mouseenter="changeIndex(index)" @mouseleave="clearIndex">
                             <a href="">{{ c1.categoryName }}</a>
                         </h3>
-                        <div class="item-list clearfix">
-                            <div class="subitem" v-for="(c2, index) in c1.categoryChild" :key="c2.categoryId">
+                        <div class="item-list clearfix"  :style="{ display: mouseIndex == index ? 'block':'none'}">
+                            <div class="subitem" v-for="(c2, index) in c1.categoryChild" :key="c2.categoryId"
+                               >
                                 <dl class="fore">
                                     <dt>
                                         <a href="">{{ c2.categoryName }}</a>
@@ -44,12 +46,18 @@
 </template>
 <script>
 import { mapState } from 'vuex';
+import throttle from 'lodash/throttle'
+console.log(_);
 export default {
     name: "typeNav",
     mounted() {
         this.$store.dispatch('categoryList')
     },
-
+    data() {
+        return {
+            mouseIndex: -1,
+        }
+    },
     computed: {
         ...mapState({
             categoryList: state =>
@@ -58,6 +66,17 @@ export default {
             //     console.log("jisuan", state);
             // }
         })
+    },
+    methods: {
+        // changeIndex(index) {
+        //     this.mouseIndex = index
+        // },
+        changeIndex:throttle(function(index){
+            this.mouseIndex = index
+        },500),
+        clearIndex() {
+            this.mouseIndex = -1;
+        }
     }
 
 }
@@ -120,7 +139,7 @@ export default {
                     }
 
                     .item-list {
-                        display: none;
+                        // display: none;
                         position: absolute;
                         width: 734px;
                         min-height: 460px;
@@ -173,15 +192,20 @@ export default {
                         }
                     }
 
-                    &:hover {
-                        .item-list {
-                            display: block;
-                        }
-                    }
+                    // &:hover {
+                    //     .item-list {
+                    //         display: block;
+                    //     }
+                    // }
                 }
-                .item:hover{
+
+                .cut {
                     background: red;
                 }
+
+                // .item:hover{
+                //     background: red;
+                // }
             }
         }
     }
