@@ -21,7 +21,7 @@ const routes = [
         component: Login
     },
     {
-        path: '/search/:keyWord',
+        path: '/search',
         component: Search,
         meta: { show: true },
         name: "search"

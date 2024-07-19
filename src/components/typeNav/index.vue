@@ -14,29 +14,34 @@
                 <a href="###">秒杀</a>
             </nav>
             <div class="sort">
-                <div class="all-sort-list2">
+                <div class="all-sort-list2" @click="goSearch">
                     <div class="item" v-for="(c1, index) in categoryList" :key="c1.categoryId"
                         :class="{ cut: mouseIndex == index }">
                         <h3 @mouseenter="changeIndex(index)" @mouseleave="clearIndex">
-                            <a href="">{{ c1.categoryName }}</a>
-                        </h3>
-                        <div class="item-list clearfix"  :style="{ display: mouseIndex == index ? 'block':'none'}">
-                            <div class="subitem" v-for="(c2, index) in c1.categoryChild" :key="c2.categoryId"
-                               >
-                                <dl class="fore">
-                                    <dt>
-                                        <a href="">{{ c2.categoryName }}</a>
-                                    </dt>
-                                    <dd>
-                                        <em v-for="(c3, index) in c2.categoryChild" :key="c3.categoryId">
-                                            <a href="">{{ c3.categoryName }}</a>
-                                        </em>
+                            <a :data-categoryName="c1.categoryName" :data-category1Id="c1.categoryId">{{
+                                c1.categoryName }}</a>
+                            <div class="item-list clearfix"
+                                :style="{ display: mouseIndex == index ? 'block' : 'none' }">
+                                <div class="subitem" v-for="(c2, index) in c1.categoryChild" :key="c2.categoryId">
+                                    <dl class="fore">
+                                        <dt>
+                                            <a :data-categoryName="c2.categoryName" :data-category2Id="c2.categoryId">{{
+                                                c2.categoryName }}</a>
+                                        </dt>
+                                        <dd>
+                                            <em v-for="(c3, index) in c2.categoryChild" :key="c3.categoryId">
+                                                <a :data-categoryName="c3.categoryName"
+                                                    :data-category3Id="c3.categoryId">{{
+                                                        c3.categoryName }}</a>
+                                            </em>
 
-                                    </dd>
-                                </dl>
+                                        </dd>
+                                    </dl>
+                                </div>
+
                             </div>
+                        </h3>
 
-                        </div>
                     </div>
 
                 </div>
@@ -47,7 +52,6 @@
 <script>
 import { mapState } from 'vuex';
 import throttle from 'lodash/throttle'
-console.log(_);
 export default {
     name: "typeNav",
     mounted() {
@@ -71,11 +75,30 @@ export default {
         // changeIndex(index) {
         //     this.mouseIndex = index
         // },
-        changeIndex:throttle(function(index){
+        changeIndex: throttle(function (index) {
             this.mouseIndex = index
-        },500),
+        }, 500),
         clearIndex() {
             this.mouseIndex = -1;
+        },
+        goSearch(event) {
+            console.log("事件委派", event.target.dataset);
+            let { categoryname, category1id, category2id, category3id } = event.target.dataset
+            if (categoryname) {
+                let localtion = { name: "search" };
+                let query = { categoryName: categoryname };
+                if (category1id) {
+                    query.category1Id = category1id
+                } else if (category2id) {
+                    query.category2Id = category2id
+                } else {
+                    query.category3Id = category3id
+                }
+                localtion.query = query
+                console.log("请求参数", localtion);
+                this.$router.push(localtion)
+
+            }
         }
     }
 
