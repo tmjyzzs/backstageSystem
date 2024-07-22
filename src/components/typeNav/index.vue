@@ -13,39 +13,43 @@
                 <a href="###">有趣</a>
                 <a href="###">秒杀</a>
             </nav>
-            <div class="sort">
-                <div class="all-sort-list2" @click="goSearch">
-                    <div class="item" v-for="(c1, index) in categoryList" :key="c1.categoryId"
-                        :class="{ cut: mouseIndex == index }">
-                        <h3 @mouseenter="changeIndex(index)" @mouseleave="clearIndex">
-                            <a :data-categoryName="c1.categoryName" :data-category1Id="c1.categoryId">{{
-                                c1.categoryName }}</a>
-                            <div class="item-list clearfix"
-                                :style="{ display: mouseIndex == index ? 'block' : 'none' }">
-                                <div class="subitem" v-for="(c2, index) in c1.categoryChild" :key="c2.categoryId">
-                                    <dl class="fore">
-                                        <dt>
-                                            <a :data-categoryName="c2.categoryName" :data-category2Id="c2.categoryId">{{
-                                                c2.categoryName }}</a>
-                                        </dt>
-                                        <dd>
-                                            <em v-for="(c3, index) in c2.categoryChild" :key="c3.categoryId">
-                                                <a :data-categoryName="c3.categoryName"
-                                                    :data-category3Id="c3.categoryId">{{
-                                                        c3.categoryName }}</a>
-                                            </em>
+            <transition name="sort">
+                <div class="sort" v-show="show">
+                    <div class="all-sort-list2" @click="goSearch">
+                        <div class="item" v-for="(c1, index) in categoryList" :key="c1.categoryId"
+                            :class="{ cut: mouseIndex == index }">
+                            <h3 @mouseenter="changeIndex(index)" @mouseleave="clearIndex">
+                                <a :data-categoryName="c1.categoryName" :data-category1Id="c1.categoryId">{{
+                                    c1.categoryName }}</a>
+                                <div class="item-list clearfix"
+                                    :style="{ display: mouseIndex == index ? 'block' : 'none' }">
+                                    <div class="subitem" v-for="(c2, index) in c1.categoryChild" :key="c2.categoryId">
+                                        <dl class="fore">
+                                            <dt>
+                                                <a :data-categoryName="c2.categoryName"
+                                                    :data-category2Id="c2.categoryId">{{
+                                                        c2.categoryName }}</a>
+                                            </dt>
+                                            <dd>
+                                                <em v-for="(c3, index) in c2.categoryChild" :key="c3.categoryId">
+                                                    <a :data-categoryName="c3.categoryName"
+                                                        :data-category3Id="c3.categoryId">{{
+                                                            c3.categoryName }}</a>
+                                                </em>
 
-                                        </dd>
-                                    </dl>
+                                            </dd>
+                                        </dl>
+                                    </div>
+
                                 </div>
+                            </h3>
 
-                            </div>
-                        </h3>
+                        </div>
 
                     </div>
-
                 </div>
-            </div>
+            </transition>
+
         </div>
     </div>
 </template>
@@ -56,10 +60,14 @@ export default {
     name: "typeNav",
     mounted() {
         this.$store.dispatch('categoryList')
+        if (this.$route.path != "/home") {
+            this.show = false
+        }
     },
     data() {
         return {
             mouseIndex: -1,
+            show: true
         }
     },
     computed: {
@@ -77,9 +85,19 @@ export default {
         // },
         changeIndex: throttle(function (index) {
             this.mouseIndex = index
+            console.log("1234123423");
+            if (this.$route.path == "/search") {
+                this.show = true
+            }
         }, 500),
+
+
         clearIndex() {
             this.mouseIndex = -1;
+            if (this.$route.path != "/home") {
+                this.show = false
+            }
+
         },
         goSearch(event) {
             console.log("事件委派", event.target.dataset);
@@ -230,6 +248,22 @@ export default {
                 //     background: red;
                 // }
             }
+        }
+
+        // 过度动画样式
+        // 过度动画开始状态（进入）
+        .sort-enter {
+            height: 0px;
+        }
+
+        // 过度动画结束状态(进入)
+        .sort-enter-to {
+            height: 461px;
+        }
+
+        // 定义动画时间。速率
+        .sort-enter-active {
+            transition: all .5s linear;
         }
     }
 }

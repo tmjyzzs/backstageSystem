@@ -3,7 +3,7 @@
     <Header></Header>
     <router-view></router-view>
     <Foolter></Foolter>
-    <typeNav></typeNav>
+    
 
   </div>
 </template>

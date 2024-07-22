@@ -29,7 +29,7 @@
       <!-- 搜索区域 -->
       <div class="search clearfix">
         <!-- logo -->
-        <div class="logoArea">
+        <div class="logoArea" @click="goIndex">
           <img src="./images/logo.png" alt="">
         </div>
         <div class="searchArea">
@@ -58,12 +58,21 @@ export default {
       // 1.路径凭借传递
       // this.$router.push("/search/"+this.keyWord+'?k='+this.keyWord)
       // 2.对象传参  -- 常用
+      // console.log("query参数", this.$route.query);
       this.$router.push({
-        name: 'search', params: {
+        name: 'search',
+        params: {
           keyWord: this.keyWord
-        }, query: {
-          k: this.keyWord
-        }
+        },
+        query:
+          this.$route.query
+      })
+    },
+    // 点击图片回到首页
+    goIndex() {
+      console.log("132312");
+      this.$router.push({
+        name: "home"
       })
     }
   }
