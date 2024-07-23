@@ -4,19 +4,10 @@
     <div class="sortList clearfix">
       <div class="center">
         <!--banner轮播-->
-        <div class="swiper-container" id="mySwiper">
+        <div class="swiper-container" ref="mySwiper">
           <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <!-- <img src="./images/home/banner1.jpg" /> -->
-            </div>
-            <div class="swiper-slide">
-              <!-- <img src="./images/home/banner2.jpg" /> -->
-            </div>
-            <div class="swiper-slide">
-              <!-- <img src="./images/home/banner3.jpg" /> -->
-            </div>
-            <div class="swiper-slide">
-              <!-- <img src="./images/home/banner4.jpg" /> -->
+            <div class="swiper-slide" v-for="(x, index) in bannerList" :key="x.id">
+              <img :src="x.imgUrl">
             </div>
           </div>
           <!-- 如果需要分页器 -->
@@ -75,6 +66,7 @@
           </li>
           <li class=" life-item">
             <i class="list-item"></i>
+
             <span class="service-intro">加油站</span>
           </li>
           <li class=" life-item">
@@ -117,12 +109,64 @@ import { mapState } from "vuex";
 //swiper使用步骤:
 //第一步:引入依赖包、样式
 import Swiper from "swiper";
+import { Pagination } from "element-ui";
 export default {
   name: "",
-  mounted(){
-    // this.$store.dispatch("getBannerList")
+  mounted() {
+    this.$store.dispatch("getBannerList")
+    this.createBanner()
+  },
+  // watch: {
+  //   bannerList: {
+  //     handler() {
+  //       this.$nextTick(() => {
+  //         new Swiper(document.querySelector(".swiper-container"), {
+  //           loop: true,
+  //           pagination: {
+  //             el: "swiper-pagination",
+  //             //分页器类型
+  //             type: "bullets",
+  //             //点击分页器，切换轮播
+  //             clickable: true,
+  //           },
+  //           navigation: {
+  //             nextEl: ".swiper-button-next",
+  //             prevEl: ".swiper-button-prev"
+  //           }
+  //         }, 100)
+  //       })
+  //     }
+  //   }
+  // },
+  computed: {
+    ...mapState({
+      bannerList: state =>
+        state.home.bannerList.data
+      // categoryList: (state) => {
+      //     console.log("jisuan", state);
+      // }
+    })
+  },
+  methods: {
+    createBanner() {
+      this.$nextTick(() => {
+        new Swiper(this.$refs.mySwiper, {
+          loop: true,
+          pagination: {
+            el: "swiper-pagination",
+            //分页器类型
+            type: "bullets",
+            //点击分页器，切换轮播 
+            clickable: true,
+          },
+          navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev"
+          }
+        }, 100)
+      })
+    }
   }
-
 };
 </script>
 

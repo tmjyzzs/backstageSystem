@@ -85,7 +85,6 @@ export default {
         // },
         changeIndex: throttle(function (index) {
             this.mouseIndex = index
-            console.log("1234123423");
             if (this.$route.path == "/search") {
                 this.show = true
             }
@@ -100,7 +99,6 @@ export default {
 
         },
         goSearch(event) {
-            console.log("事件委派", event.target.dataset);
             let { categoryname, category1id, category2id, category3id } = event.target.dataset
             if (categoryname) {
                 let localtion = { name: "search" };
