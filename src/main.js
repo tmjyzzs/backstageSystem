@@ -15,7 +15,10 @@ Vue.use(ElementUI)
 
 // 全局组件
 import typeNav from "./components/typeNav"
-Vue.component(typeNav.name,typeNav)
+Vue.component(typeNav.name, typeNav)
+
+//引入mockServe.js -- mock数据
+import '@/mock/mockServe'
 
 
 
