@@ -1,8 +1,8 @@
 <template>
   <div>我是主页
     <typeNav></typeNav>
-    <listContainer></listContainer>
-    <floor>{{ floorList }}</floor>
+    <listContainer />
+    <floor v-for="(floor, index) in floorList" :key="floor.id" :floor="floor" />
   </div>
 
 
@@ -23,9 +23,8 @@ export default {
   },
   computed: {
     ...mapState({
-      floorList: (state) => {
-        console.log("floorList", state.home.floorList);
-      }
+      floorList: state => state.home.floorList
+      // floorList: (state) => {console.log("1111111",state.home.floorList.data);}
     })
   }
 

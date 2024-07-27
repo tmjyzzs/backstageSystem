@@ -1,6 +1,6 @@
 <template>
   <div class="floor">
-    <!-- <div class="py-container">
+    <div class="py-container">
       <div class="title clearfix">
         <h3 class="fl">{{ floor.name }}</h3>
         <div class="fr">
@@ -59,7 +59,7 @@
           </div>
         </div>
       </div>
-    </div> -->
+    </div>
     <div>floor</div>
   </div>
 </template>
@@ -69,7 +69,24 @@ import Swiper from "swiper";
 export default {
   name: "",
   mounted() {
+    new Swiper(this.$refs.floor1Swiper, {
+      loop: true,
+      pagination: {
+        el: "swiper-pagination",
+        //分页器类型
+        type: "bullets",
+        //点击分页器，切换轮播 
+        clickable: true,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev"
+      }
+    }, 100)
   },
+  props: [
+    'floor'
+  ]
 };
 </script>
 

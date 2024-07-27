@@ -21,19 +21,16 @@ const mutations = {
 const actions = {
     async categoryList({ commit }) {
         let result = await getBaseCategoryList();
-        console.log(result);
         commit("CATEGORYLIST", result.data)
     },
     getBannerList({ commit }) {
         reqGetBannerList().then(res => {
-            console.log("mock数据", res);
             commit("BANNERLIST", res.data);
         });
     },
     async getReqFloorList({ commit }) {
         let floorList = await reqFloorList()
-        console.log("仓库", floorList);
-        commit("FLOORLIST", floorList)
+        commit("FLOORLIST", floorList.data.data)
     }
 };
 // getters：理解为计算属性，用于简化仓库数据，让组件获取仓库的数据更加方便
