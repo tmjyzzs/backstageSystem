@@ -1,9 +1,7 @@
 <template>
-  <div>foot组件
+  <div>
     <div>
-      <button>点我+1</button>
-      <div>计算属性{{count}}</div>
-      <button>点我-1</button>
+      foot组件
     </div>
   </div>
 </template>
@@ -11,7 +9,7 @@
 <script>
 import { mapState } from 'vuex';
 export default {
-  name: "Foolter",
+  name: "foolter",
   computed: {
     ...mapState(['count'])
   }

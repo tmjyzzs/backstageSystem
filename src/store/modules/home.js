@@ -1,8 +1,9 @@
-import { getBaseCategoryList, reqGetBannerList } from "@/api"
+import { getBaseCategoryList, reqGetBannerList, reqFloorList } from "@/api"
 // state：仓库存储数据的地方
 const state = {
     categoryList: [],
-    bannerList: []
+    bannerList: [],
+    floorList: []
 };
 // mutations：修改state的唯一手段
 const mutations = {
@@ -11,6 +12,9 @@ const mutations = {
     },
     BANNERLIST(state, bannerList) {
         state.bannerList = bannerList
+    },
+    FLOORLIST(state, floorList) {
+        state.floorList = floorList
     }
 };
 // action：处理dispatch，可以书写自己的业务逻辑。也可以处理异步
@@ -21,11 +25,15 @@ const actions = {
         commit("CATEGORYLIST", result.data)
     },
     getBannerList({ commit }) {
-        reqGetBannerList().then(res=>{
-            console.log("mock数据",res);
+        reqGetBannerList().then(res => {
+            console.log("mock数据", res);
             commit("BANNERLIST", res.data);
         });
-        
+    },
+    async getReqFloorList({ commit }) {
+        let floorList = await reqFloorList()
+        console.log("仓库", floorList);
+        commit("FLOORLIST", floorList)
     }
 };
 // getters：理解为计算属性，用于简化仓库数据，让组件获取仓库的数据更加方便

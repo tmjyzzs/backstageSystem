@@ -149,8 +149,8 @@ export default {
   },
   methods: {
     createBanner() {
-      this.$nextTick(() => {
-        new Swiper(this.$refs.mySwiper, {
+      this.$nextTick(() => {~~
+        new Swiper(this.$refs.mySwiper, {  
           loop: true,
           pagination: {
             el: "swiper-pagination",
