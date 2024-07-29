@@ -4,19 +4,17 @@
     <div class="sortList clearfix">
       <div class="center">
         <!--banner轮播-->
-        <div class="swiper-container" ref="mySwiper">
+        <carousel :list="bannerList" />
+        <!-- <div class="swiper-container" ref="mySwiper">
           <div class="swiper-wrapper">
             <div class="swiper-slide" v-for="(x, index) in bannerList" :key="x.id">
               <img :src="x.imgUrl">
             </div>
           </div>
-          <!-- 如果需要分页器 -->
           <div class="swiper-pagination"></div>
-
-          <!-- 如果需要导航按钮 -->
           <div class="swiper-button-prev"></div>
           <div class="swiper-button-next"></div>
-        </div>
+        </div> -->
       </div>
       <div class="right">
         <div class="news">

@@ -24,17 +24,6 @@
             </div>
             <div class="floorBanner">
               <carousel :list="floor.carouselList" />
-              <!-- <div class="swiper-container" ref="floor1Swiper">
-                <div class="swiper-wrapper">
-                  <div class="swiper-slide" v-for="(item, index) in floor.carouselList" :key="item.id" ref="box">
-                    <img :src="item.imgUrl" />
-                  </div>
-                </div>
-                <div class="swiper-pagination"></div>
-
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
-              </div> -->
             </div>
             <div class="split">
               <span class="floor-x-line"></span>
@@ -65,25 +54,8 @@
 </template>
 
 <script>
-import Swiper from "swiper";
 export default {
   name: "",
-  mounted() {
-    new Swiper(this.$refs.floor1Swiper, {
-      loop: true,
-      pagination: {
-        el: "swiper-pagination",
-        //分页器类型
-        type: "bullets",
-        //点击分页器，切换轮播 
-        clickable: true,
-      },
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev"
-      }
-    }, 100)
-  },
   props: [
     'floor'
   ]
