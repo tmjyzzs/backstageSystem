@@ -2436,6 +2436,10 @@
 <script>
 export default {
 
+  mounted() {
+    this.$store.dispatch('searchList')
+  }
+
 }
 </script>
 
