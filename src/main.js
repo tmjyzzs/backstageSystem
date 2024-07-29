@@ -16,6 +16,8 @@ Vue.use(ElementUI)
 // 全局组件
 import typeNav from "./components/typeNav"
 Vue.component(typeNav.name, typeNav)
+import carousel from './components/carousel'
+Vue.component(carousel.name, carousel)
 
 //引入mockServe.js -- mock数据
 import '@/mock/mockServe'

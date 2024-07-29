@@ -23,7 +23,8 @@
               <img :src="floor.imgUrl" />
             </div>
             <div class="floorBanner">
-              <div class="swiper-container" ref="floor1Swiper">
+              <carousel :list="floor.carouselList" />
+              <!-- <div class="swiper-container" ref="floor1Swiper">
                 <div class="swiper-wrapper">
                   <div class="swiper-slide" v-for="(item, index) in floor.carouselList" :key="item.id" ref="box">
                     <img :src="item.imgUrl" />
@@ -33,7 +34,7 @@
 
                 <div class="swiper-button-prev"></div>
                 <div class="swiper-button-next"></div>
-              </div>
+              </div> -->
             </div>
             <div class="split">
               <span class="floor-x-line"></span>
@@ -60,7 +61,6 @@
         </div>
       </div>
     </div>
-    <div>floor</div>
   </div>
 </template>
 
