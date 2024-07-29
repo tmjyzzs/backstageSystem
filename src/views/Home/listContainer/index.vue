@@ -5,16 +5,6 @@
       <div class="center">
         <!--banner轮播-->
         <carousel :list="bannerList" />
-        <!-- <div class="swiper-container" ref="mySwiper">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide" v-for="(x, index) in bannerList" :key="x.id">
-              <img :src="x.imgUrl">
-            </div>
-          </div>
-          <div class="swiper-pagination"></div>
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-button-next"></div>
-        </div> -->
       </div>
       <div class="right">
         <div class="news">
