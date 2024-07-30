@@ -16,7 +16,14 @@ const actions = {
 const getters = {
     goodsList(state) {
         return state.searchList.data.goodsList || []
+    },
+    trademarkList(state){
+        return state.searchList.data.trademarkList || []
+    },
+    attrsList(){
+        return state.searchList.data.attrsList || []
     }
+
 };
 export default {
     state,
