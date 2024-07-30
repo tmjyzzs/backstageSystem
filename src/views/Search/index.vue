@@ -450,15 +450,39 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 export default {
-
+  data() {
+    return {
+      //将来Search模块搜索的条件
+      searchParams: {
+        category1Id: "", //一级分类的id
+        category2Id: "", //二级分类的id
+        category3Id: "", //三级分类的id
+        categoryName: "", //商品的名字
+        keyword: "", //用户搜索的关键字
+        props: [], //商品属性的搜索条件
+        trademark: "", //品牌的搜索条件
+        order: "1:desc", //排序的参数 【默认初始值:1:desc】
+        pageNo: 1, //当前分页器的页码  【默认初始值:1】
+        pageSize: 3, //代表当前一页显示几条数据 【默认初始值:10】
+      },
+    };
+  },
+  beforeMount() {
+    console.log("参数", this.$route.params);
+    Object.assign(this.searchParams, this.$route.query, this.$route.params);
+  },
   mounted() {
-    this.$store.dispatch('searchList')
-    console.log("vuex111", mapState({}));
+    this.getData()
   },
   computed: {
     ...mapGetters(["goodsList"])
+  },
+  methods: {
+    getData() {
+      this.$store.dispatch('searchList', this.searchParams)
+    }
   }
 
 }
