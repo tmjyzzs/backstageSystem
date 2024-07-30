@@ -13,7 +13,11 @@ const actions = {
         commit("SEARCHLIST", result.data)
     }
 }
-const getters = {};
+const getters = {
+    goodsList(state) {
+        return state.searchList.data.goodsList || []
+    }
+};
 export default {
     state,
     mutations,

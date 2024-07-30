@@ -2,6 +2,7 @@
   <div>
     <div>
       foot组件
+      {{ count }}
     </div>
   </div>
 </template>
