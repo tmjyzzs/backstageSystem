@@ -97,9 +97,7 @@ import { mapState } from "vuex";
 //swiper使用步骤:
 //第一步:引入依赖包、样式
 import Swiper from "swiper";
-import { Pagination } from "element-ui";
 export default {
-  name: "",
   mounted() {
     this.$store.dispatch("getBannerList")
     this.createBanner()

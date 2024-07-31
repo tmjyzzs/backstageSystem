@@ -254,7 +254,7 @@
         </div>
         <div class="copyright">
           <ul class="helpLink">
-            <li>关于我们
+            <li @click="testClick">关于我们
               <span class="space"></span>
             </li>
             <li>联系我们
@@ -296,6 +296,7 @@
 import { mapGetters } from 'vuex';
 import SearchSelector from './SearchSelector'
 export default {
+  name: "search",
   components: {
     SearchSelector
   },
@@ -317,7 +318,6 @@ export default {
     };
   },
   beforeMount() {
-    console.log("参数", this.$route.params);
     Object.assign(this.searchParams, this.$route.query, this.$route.params);
   },
   mounted() {
@@ -326,17 +326,35 @@ export default {
   computed: {
     ...mapGetters(["goodsList"])
   },
+  watch: {
+
+    // searchParams: {
+    //   immediate: true,
+    //   deep: true,
+    //   handler() {
+    //     console.log("12312");
+    //   }
+    // }
+    // "$route": {
+    //   handler() {
+    //     console.log("12312", this.$route);
+    //   },
+    //   // immediate: true,
+    //   deep: true,
+    // }
+    $route(){
+      console.log(12312);
+    }
+  },
   methods: {
     getData() {
       this.$store.dispatch('searchList', this.searchParams)
+    },
+    testClick() {
+      console.log(1232131);
     }
   },
-  watch: {
-    immediate: true,
-    $route(newValue,oldValue){
-      console.log("监听参数变化",this.searchParams);
-    }
-  }
+
 
 }
 </script>

@@ -52,7 +52,7 @@ const routes = [
         component: Login
     },
     {
-        path: '/search',
+        path: '/search/:keyword?',
         component: Search,
         meta: { show: true },
         name: "search"

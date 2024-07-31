@@ -54,7 +54,7 @@ export default {
   },
   methods: {
     goSearch() {
-      console.log("vue", this);
+      console.log("keyWord", this.keyWord);
       // 1.路径凭借传递
       // this.$router.push("/search/"+this.keyWord+'?k='+this.keyWord)
       // 2.对象传参  -- 常用
@@ -62,7 +62,7 @@ export default {
       this.$router.push({
         name: 'search',
         params: {
-          keyWord: this.keyWord
+          keyWord: this.keyWord || undefined
         },
         query:
           this.$route.query
@@ -70,7 +70,6 @@ export default {
     },
     // 点击图片回到首页
     goIndex() {
-      console.log("132312");
       this.$router.push({
         name: "home"
       })
