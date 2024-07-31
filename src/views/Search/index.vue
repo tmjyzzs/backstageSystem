@@ -330,6 +330,12 @@ export default {
     getData() {
       this.$store.dispatch('searchList', this.searchParams)
     }
+  },
+  watch: {
+    immediate: true,
+    $route(newValue,oldValue){
+      console.log("监听参数变化",this.searchParams);
+    }
   }
 
 }
