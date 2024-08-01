@@ -20,10 +20,13 @@
             <li class="with-x" v-show="searchParams.keyWord">{{ searchParams.keyWord }}
               <i @click="removekeyWord">×</i>
             </li>
-
+            <li class="with-x" v-show="searchParams.trademark">
+              {{ searchParams.trademark.split(":")[1]
+              }}<i @click="removeTradeMark">×</i>
+            </li>
           </ul>
         </div>
-        <SearchSelector />
+        <SearchSelector @getTradeMark="getTradeMark" />
         <!--details-->
         <div class="details clearfix">
           <div class="sui-navbar">
@@ -365,7 +368,20 @@ export default {
       this.searchParams.keyWord = undefined;
       this.getData();
       this.$bus.$emit("clear");
-    }
+    },
+    getTradeMark(tmId, tmName) {
+      console.log("父组件", tmId, tmName);
+      this.searchParams.trademark = `${tmId}:${tmName}`;
+      //再次发请求即可
+      this.getData();
+    },
+    //面包屑清除品牌回调
+    removeTradeMark() {
+      //清空品牌的搜索条件
+      this.searchParams.trademark = "";
+      //再次发请求获取最新的数据展示
+      this.getData();
+    },
   },
 
 
