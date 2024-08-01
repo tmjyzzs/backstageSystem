@@ -52,6 +52,11 @@ export default {
       keyWord: ''
     }
   },
+  mounted() {
+    this.$bus.$on('clear', () => {
+      this.keyWord = ''
+    })
+  },
   methods: {
     goSearch() {
       console.log("keyWord", this.keyWord);

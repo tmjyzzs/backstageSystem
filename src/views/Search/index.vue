@@ -14,10 +14,13 @@
             </li>
           </ul>
           <ul class="fl sui-tag">
-            <li class="with-x">手机</li>
-            <li class="with-x">iphone<i>×</i></li>
-            <li class="with-x">华为<i>×</i></li>
-            <li class="with-x">OPPO<i>×</i></li>
+            <li class="with-x" v-show="searchParams.categoryName">{{ searchParams.categoryName }}
+              <i @click="removeCategoryName">×</i>
+            </li>
+            <li class="with-x" v-show="searchParams.keyWord">{{ searchParams.keyWord }}
+              <i @click="removekeyWord">×</i>
+            </li>
+
           </ul>
         </div>
         <SearchSelector />
@@ -321,6 +324,7 @@ export default {
     Object.assign(this.searchParams, this.$route.query, this.$route.params);
   },
   mounted() {
+    console.log("search组件挂载");
     this.getData()
   },
   computed: {
@@ -342,7 +346,7 @@ export default {
     //   // immediate: true,
     //   deep: true,
     // }
-    $route(){
+    $route() {
       console.log(12312);
     }
   },
@@ -352,6 +356,15 @@ export default {
     },
     testClick() {
       console.log(1232131);
+    },
+    removeCategoryName() {
+      this.searchParams.categoryName = "";
+      this.$router.push({ name: "search", params: this.$route.params });
+    },
+    removekeyWord() {
+      this.searchParams.keyWord = undefined;
+      this.getData();
+      this.$bus.$emit("clear");
     }
   },
 
