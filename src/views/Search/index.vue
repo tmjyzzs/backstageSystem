@@ -14,41 +14,40 @@
             </li>
           </ul>
           <ul class="fl sui-tag">
-            <li class="with-x" v-show="searchParams.categoryName">{{ searchParams.categoryName }}
+            <li class="with-x" v-show="searchParams.categoryName">
+              {{ searchParams.categoryName }}
               <i @click="removeCategoryName">×</i>
             </li>
-            <li class="with-x" v-show="searchParams.keyWord">{{ searchParams.keyWord }}
+            <li class="with-x" v-show="searchParams.keyWord">
+              {{ searchParams.keyWord }}
               <i @click="removekeyWord">×</i>
             </li>
             <li class="with-x" v-show="searchParams.trademark">
-              {{ searchParams.trademark.split(":")[1]
-              }}<i @click="removeTradeMark">×</i>
+              {{ searchParams.trademark.split(":")[1] }}
+              <i @click="removeTradeMark">×</i>
+            </li>
+            <!-- 商品属性值面包屑的地方 -->
+            <li class="with-x" v-for="(attrValue, index) in searchParams.props" :key="index">
+              {{ attrValue.split(":")[1] }}
+              <i @click="removeAttr(index)">×</i>
             </li>
           </ul>
         </div>
-        <SearchSelector @getTradeMark="getTradeMark" />
+        <SearchSelector @getTradeMark="getTradeMark" @getAttrAndAttrValue="getAttrAndAttrValue" />
         <!--details-->
         <div class="details clearfix">
           <div class="sui-navbar">
             <div class="navbar-inner filter">
               <ul class="sui-nav">
-                <li class="active">
-                  <a href="#">综合</a>
+                <li :class="{ active: isOne }" @click="switchState(1)">
+                  <a>综合
+                    <span v-show="isOne" class="iconfont " :class="{ 'icon-up': isAcs, 'icon-down': isDesc }"></span>
+                  </a>
                 </li>
-                <li>
-                  <a href="#">销量</a>
-                </li>
-                <li>
-                  <a href="#">新品</a>
-                </li>
-                <li>
-                  <a href="#">评价</a>
-                </li>
-                <li>
-                  <a href="#">价格⬆</a>
-                </li>
-                <li>
-                  <a href="#">价格⬇</a>
+                <li :class="{ active: isTwo }" @click="switchState(2)">
+                  <a>销量
+                    <span v-show="isTwo" class="iconfont " :class="{ 'icon-up': isAcs, 'icon-down': isDesc }"></span>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -317,7 +316,7 @@ export default {
         keyword: "", //用户搜索的关键字
         props: [], //商品属性的搜索条件
         trademark: "", //品牌的搜索条件
-        order: "1:desc", //排序的参数 【默认初始值:1:desc】
+        order: "1:asc", //排序的参数 【默认初始值:1:desc】
         pageNo: 1, //当前分页器的页码  【默认初始值:1】
         pageSize: 3, //代表当前一页显示几条数据 【默认初始值:10】
       },
@@ -331,7 +330,22 @@ export default {
     this.getData()
   },
   computed: {
-    ...mapGetters(["goodsList"])
+    ...mapGetters(["goodsList"]),
+    isOne() {
+      return this.searchParams.order.indexOf('1') != -1
+    },
+    isTwo() {
+      return this.searchParams.order.indexOf('2') != -1
+    },
+    isAcs() {
+      console.log("计算属性", this.searchParams.order);
+      return this.searchParams.order.indexOf('asc') != -1
+    },
+    isDesc() {
+      return this.searchParams.order.indexOf("desc") != -1
+    },
+
+
   },
   watch: {
 
@@ -382,6 +396,26 @@ export default {
       //再次发请求获取最新的数据展示
       this.getData();
     },
+    getAttrAndAttrValue(attrId, attrName) {
+      console.log("父组件", attrId, attrName);
+      let newProps = `${attrId}:${attrName}`;
+
+      if (this.searchParams.props.indexOf(newProps) == -1) {
+        this.searchParams.props.push(newProps);
+        //再次发请求，获取最新的数据展示即可
+        this.getData();
+      }
+    },
+    removeAttr(index) {
+      this.searchParams.props.splice(index, 1);
+      //在发一次请求
+      this.getData();
+    },
+    switchState(state) {
+      // 切换parmasSearch状态
+      this.searchParams.order = `${state}:${this.searchParams.order.indexOf('desc') != -1 ? 'asc' : 'desc'}`
+      this.getData();
+    }
   },
 
 
