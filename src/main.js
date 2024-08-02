@@ -18,7 +18,8 @@ import typeNav from "./components/typeNav"
 Vue.component(typeNav.name, typeNav)
 import carousel from './components/carousel'
 Vue.component(carousel.name, carousel)
-
+import Pagination from './components/pagination'
+Vue.component(Pagination.name, Pagination)
 //引入mockServe.js -- mock数据
 import '@/mock/mockServe'
 
