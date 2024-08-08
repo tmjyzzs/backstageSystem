@@ -81,7 +81,8 @@
             </ul>
           </div>
           <div class="fr page">
-            <Pagination />
+            <Pagination :total="total" :pageSize="searchParams.pageSize" :pageNo="searchParams.pageNo" :pagerCount="5"
+              @currentPage="currentPage" />
           </div>
         </div>
         <!--hotsale-->
@@ -272,7 +273,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 import SearchSelector from './SearchSelector'
 export default {
   name: "search",
@@ -305,6 +306,9 @@ export default {
   },
   computed: {
     ...mapGetters(["goodsList"]),
+    ...mapState({
+      total: state => state.search.searchList.data.total
+    }),
     isOne() {
       return this.searchParams.order.indexOf('1') != -1
     },
@@ -389,7 +393,14 @@ export default {
       // 切换parmasSearch状态
       this.searchParams.order = `${state}:${this.searchParams.order.indexOf('desc') != -1 ? 'asc' : 'desc'}`
       this.getData();
-    }
+    },
+    // 发送分页参数
+    currentPage(pageNo) {
+      //父组件整理参数
+      console.log("分页组件传递参数", pageNo);
+      this.searchParams.pageNo = pageNo;
+      this.getData();
+    },
   },
 
 
