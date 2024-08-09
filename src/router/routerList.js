@@ -15,7 +15,7 @@ export default [
         component: Login
     },
     {
-        path: '/detail/:id',
+        path: '/detail/:skuId',
         component: Detail
     },
     {

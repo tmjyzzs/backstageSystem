@@ -33,7 +33,7 @@
           <img src="./images/logo.png" alt="">
         </div>
         <div class="searchArea">
-          <input type="text" v-model="keyWord">
+          <input type="text" v-model="keyword">
           <button @click="goSearch">搜索</button>
         </div>
       </div>
@@ -49,17 +49,25 @@ export default {
   name: "Header",
   data() {
     return {
-      keyWord: ''
+      keyword: ''
     }
   },
   mounted() {
     this.$bus.$on('clear', () => {
-      this.keyWord = ''
+      this.keyword = ''
     })
   },
   methods: {
     goSearch() {
-      console.log("keyWord", this.keyWord);
+      console.log("keyWord", this.keyword);
+      console.log({
+        name: 'search',
+        params: {
+          keyword: this.keyword || undefined
+        },
+        query:
+          this.$route.query
+      });
       // 1.路径凭借传递
       // this.$router.push("/search/"+this.keyWord+'?k='+this.keyWord)
       // 2.对象传参  -- 常用
@@ -67,7 +75,7 @@ export default {
       this.$router.push({
         name: 'search',
         params: {
-          keyWord: this.keyWord || undefined
+          keyword: this.keyword || undefined
         },
         query:
           this.$route.query

@@ -1,16 +1,16 @@
 <template>
     <div class="detail">
         <!-- 商品分类导航 -->
-        <TypeNav />
+        <typeNav />
 
         <!-- 主要内容区域 -->
         <section class="con">
             <!-- 导航路径区域:面包屑 -->
             <div class="conPoin">
                 <!-- 程序的警告:categoryView是undefined,它是vuex给的 -->
-                <!-- <span>{{ categoryView.category1Name }}</span>
+                <span>{{ categoryView.category1Name }}</span>
                 <span>{{ categoryView.category2Name }}</span>
-                <span>{{ categoryView.category3Name }}</span> -->
+                <span>{{ categoryView.category3Name }}</span>
             </div>
             <!-- 主要内容区域 -->
             <div class="mainCon">
@@ -25,10 +25,10 @@
                 <div class="InfoWrap">
                     <div class="goodsDetail">
                         <h3 class="InfoName">
-                            <!-- {{ skuInfo.skuName }} -->
+                            {{ skuInfo.skuName }}
                         </h3>
                         <p class="news">
-                            <!-- {{ skuInfo.skuDesc }} -->
+                            {{ skuInfo.skuDesc }}
                         </p>
                         <div class="priceArea">
                             <div class="priceArea1">
@@ -37,13 +37,13 @@
                                 </div>
                                 <div class="price">
                                     <i>¥</i>
-                                    <!-- <em>{{ skuInfo.price }}</em> -->
+                                    <em>{{ skuInfo.price }}</em>
                                     <span>降价通知</span>
                                 </div>
                                 <div class="remark">
                                     <i>累计评价</i>
                                     <!--代表的是某一个数字的多少幂-->
-                                    <!-- <em>{{ skuInfo.id ** 2 }}</em> -->
+                                    <em>{{ skuInfo.id ** 2 }}</em>
                                 </div>
                             </div>
                             <div class="priceArea2">
@@ -52,7 +52,7 @@
                                 </div>
                                 <div class="fixWidth">
                                     <i class="red-bg">加价购</i>
-                                    <!-- <em class="t-gray">{{ skuInfo.createTime }}</em> -->
+                                    <em class="t-gray">{{ skuInfo.createTime }}</em>
                                 </div>
                             </div>
                         </div>
@@ -354,11 +354,11 @@ export default {
     },
     mounted() {
         //派发action:详情模块发请求需要携带商品的id
-        // this.$store.dispatch("getDetailInfo", this.$route.params.skuId);
+        this.$store.dispatch("getDetailInfo", this.$route.params.skuId);
         // console.log("我是详情页的mounted,发请求获取详情的数据");
     },
     computed: {
-        // ...mapGetters(["categoryView", "skuInfo", "spuSaleAttrList"]),
+        ...mapGetters(["categoryView", "skuInfo", "spuSaleAttrList"]),
     },
     methods: {
         // changeChecked(saleAttrValue, arr) {

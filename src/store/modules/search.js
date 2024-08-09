@@ -10,18 +10,18 @@ const mutations = {
 const actions = {
     async searchList({ commit }, params = {}) {
         let result = await reqGetSearchInfo(params);
-        commit("SEARCHLIST", result.data)
+        commit("SEARCHLIST", result.data.data)
     }
 }
 const getters = {
     goodsList(state) {
-        return state.searchList.data.goodsList || []
+        return state.searchList.goodsList || []
     },
     trademarkList(state){
-        return state.searchList.data.trademarkList || []
+        return state.searchList.trademarkList || []
     },
     attrsList(){
-        return state.searchList.data.attrsList || []
+        return state.searchList.attrsList || []
     }
 
 };

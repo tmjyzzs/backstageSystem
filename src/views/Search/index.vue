@@ -309,7 +309,7 @@ export default {
   computed: {
     ...mapGetters(["goodsList"]),
     ...mapState({
-      total: state => state.search.searchList.data.total
+      total: state => state.search.searchList.total
     }),
     isOne() {
       return this.searchParams.order.indexOf('1') != -1
