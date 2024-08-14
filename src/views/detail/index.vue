@@ -17,9 +17,9 @@
                 <!-- 左侧放大镜区域 -->
                 <div class="previewWrap">
                     <!--放大镜效果-->
-                    <!-- <Zoom /> -->
+                    <Zoom />
                     <!-- 小图列表 -->
-                    <!-- <ImageList /> -->
+                    <ImageList />
                 </div>
                 <!-- 右侧选择区域布局 -->
                 <div class="InfoWrap">
@@ -71,21 +71,21 @@
                             </div>
                         </div>
                     </div>
-
+                    <!-- 选项卡 -->
                     <div class="choose">
                         <div class="chooseArea">
                             <div class="choosed"></div>
                             <!--这里是商品销售属性的地方-->
-                            <!-- <dl v-for="(saleAttr, index) in spuSaleAttrList" :key="saleAttr.id"> -->
-                                <!-- <dt class="title">{{ saleAttr.saleAttrName }}</dt> -->
+                            <dl v-for="(saleAttr, index) in spuSaleAttrList" :key="saleAttr.id">
+                                <dt class="title">{{ saleAttr.saleAttrName }}</dt>
                                 <!--每一个销售属性的属性值的地方-->
-                                <!-- <dd changepirce="0" :class="{ active: saleAttrValue.isChecked == 1 }" v-for="(
+                                <dd changepirce="0" :class="{ active: saleAttrValue.isChecked == 1 }" v-for="(
                       saleAttrValue, index
                     ) in saleAttr.spuSaleAttrValueList" :key="saleAttrValue.id" @click="
                         changeChecked(saleAttrValue, saleAttr.spuSaleAttrValueList)
                         ">
                                     {{ saleAttrValue.saleAttrValueName }}
-                                </dd> -->
+                                </dd>
                             </dl>
                         </div>
                         <div class="cartWrap">
@@ -336,8 +336,8 @@
 </template>
 
 <script>
-// import ImageList from "./ImageList/ImageList";
-// import Zoom from "./Zoom/Zoom";
+import ImageList from "./imageList/ImageList";
+import Zoom from "./zoom/Zoom";
 //通过辅助函数获取数据
 import { mapGetters } from "vuex";
 export default {
@@ -349,8 +349,8 @@ export default {
         };
     },
     components: {
-        // ImageList,
-        // Zoom,
+        ImageList,
+        Zoom,
     },
     mounted() {
         //派发action:详情模块发请求需要携带商品的id
@@ -361,18 +361,18 @@ export default {
         ...mapGetters(["categoryView", "skuInfo", "spuSaleAttrList"]),
     },
     methods: {
-        // changeChecked(saleAttrValue, arr) {
-        //     console.log(this.skuInfo);
-        //     //响应式数据:对象、数组
-        //     //数组的响应式数据:变更、替换【基本类型数据、引用类型对象响应式的】
-        //     //数组里面是基本类型数据：替换、变更    如果对象，不管你怎么玩都是相应的!!!!
-        //     //排他操作
-        //     //底下的代码:修改数组里面的对象【相应的式的】,数据变化视图跟这变化！！！
-        //     arr.forEach((item) => {
-        //         item.isChecked = "0";
-        //     });
-        //     saleAttrValue.isChecked = "1";
-        // },
+        changeChecked(saleAttrValue, arr) {
+            console.log(this.skuInfo);
+            //响应式数据:对象、数组
+            //数组的响应式数据:变更、替换【基本类型数据、引用类型对象响应式的】
+            //数组里面是基本类型数据：替换、变更    如果对象，不管你怎么玩都是相应的!!!!
+            //排他操作
+            //底下的代码:修改数组里面的对象【相应的式的】,数据变化视图跟这变化！！！
+            arr.forEach((item) => {
+                item.isChecked = "0";
+            });
+            saleAttrValue.isChecked = "1";
+        },
         // //数量的表单元素的change回调
         // handler(e) {
         //     //通过event事件对象获取用户输入内容[用户输入的内容一定是字符串类型的数据]
