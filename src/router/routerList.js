@@ -3,6 +3,7 @@ import Login from '@/views/Login'
 import Search from '@/views/Search'
 import Register from '@/views/Register'
 import Detail from '@/views/detail'
+import AddCartSuccess from '@/views/addCartSuccess'
 export default [
     {
         path: '/home',
@@ -27,6 +28,10 @@ export default [
     {
         path: '/register',
         component: Register
+    },
+    {
+        path: '/addcartsuccess',
+        component: AddCartSuccess
     },
     {
         path: "*",

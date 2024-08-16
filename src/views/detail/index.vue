@@ -91,13 +91,13 @@
                         <div class="cartWrap">
                             <!-- 购物商品个数的操作地方 -->
                             <div class="controls">
-                                <!-- <input autocomplete="off" class="itxt" v-model="skuNum" @change="handler" /> -->
+                                <input autocomplete="off" class="itxt" v-model="skuNum" @change="handlerNum" />
                                 <a href="javascript:" class="plus" @click="skuNum++">+</a>
                                 <a href="javascript:" class="mins" @click="skuNum > 1 ? skuNum-- : 1">-</a>
                             </div>
                             <div class="add">
                                 <!--点击加入购物车按钮:不能用声明式导航,第一个：要发请求（有业务）-->
-                                <!-- <a @click="addOrUpdateCart">加入购物车</a> -->
+                                <a @click="addOrUpdateCart">加入购物车</a>
                             </div>
                         </div>
                     </div>
@@ -374,42 +374,43 @@ export default {
             saleAttrValue.isChecked = "1";
         },
         // //数量的表单元素的change回调
-        // handler(e) {
-        //     //通过event事件对象获取用户输入内容[用户输入的内容一定是字符串类型的数据]
-        //     let value = e.target.value * 1;
-        //     //用户输入进来非法情况判断
-        //     if (isNaN(value) || value < 1) {
-        //         this.skuNum = 1;
-        //     } else {
-        //         //正常情况
-        //         this.skuNum = parseInt(value);
-        //     }
-        // },
+        handlerNum(e) {
+            console.log("事件",e);
+            //通过event事件对象获取用户输入内容[用户输入的内容一定是字符串类型的数据]
+            let value = e.target.value * 1;
+            //用户输入进来非法情况判断
+            if (isNaN(value) || value < 1) {
+                this.skuNum = 1;
+            } else {
+                //正常情况
+                this.skuNum = parseInt(value);
+            }
+        },
         // //加入购物车按钮
-        // async addOrUpdateCart() {
-        //     //派发action:携带的载荷，分别商品的id、商品个数
-        //     //思考底下的这行代码实质做了一个什么事情?
-        //     //实质就是调用了小仓库里面相应的这个函数->addOrUpdateCart,声明部分加上asyc,这个函数执行的结构一定是Promise
-        //     //返回结果是一个Promise对象【三种状态:pending、成功、失败】，返回状态到底是什么，取决于这个函数addOrUpdateCart返回结果
-        //     try {
-        //         //成功干什么
-        //         await this.$store.dispatch("addOrUpdateCart", {
-        //             skuId: this.$route.params.skuId,
-        //             skuNum: this.skuNum,
-        //         });
-        //         //路由跳转:携带参数,携带参数一般都是基本类型数据【字符串、数字等等】，引用类型数据白扯【传递过来路由获取不到】！！！
-        //         //浏览器存储功能，在路由跳转在之前，存储到浏览器中
-        //         sessionStorage.setItem('SKUINFO', JSON.stringify(this.skuInfo));
-        //         //路由跳转
-        //         this.$router.push({
-        //             path: "/addcartsuccess",
-        //             query: { skuNum: this.skuNum },
-        //         });
-        //     } catch (error) {
-        //         //失败干什么
-        //         alert("加入购物车失败");
-        //     }
-        // },
+        async addOrUpdateCart() {
+            //派发action:携带的载荷，分别商品的id、商品个数
+            //思考底下的这行代码实质做了一个什么事情?
+            //实质就是调用了小仓库里面相应的这个函数->addOrUpdateCart,声明部分加上asyc,这个函数执行的结构一定是Promise
+            //返回结果是一个Promise对象【三种状态:pending、成功、失败】，返回状态到底是什么，取决于这个函数addOrUpdateCart返回结果
+            try {
+                //成功干什么
+                await this.$store.dispatch("addOrUpdateCart", {
+                    skuId: this.$route.params.skuId,
+                    skuNum: this.skuNum,
+                });
+                //路由跳转:携带参数,携带参数一般都是基本类型数据【字符串、数字等等】，引用类型数据白扯【传递过来路由获取不到】！！！
+                //浏览器存储功能，在路由跳转在之前，存储到浏览器中
+                sessionStorage.setItem('SKUINFO', JSON.stringify(this.skuInfo));
+                //路由跳转
+                this.$router.push({
+                    path: "/addcartsuccess",
+                    query: { skuNum: this.skuNum },
+                });
+            } catch (error) {
+                //失败干什么
+                alert("加入购物车失败");
+            }
+        },
     },
 };
 </script>
