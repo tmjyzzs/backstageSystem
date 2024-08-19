@@ -1,5 +1,6 @@
 import axios from 'axios'
 import nprogress from 'nprogress';
+import store from "@/store";
 import 'nprogress/nprogress.css'
 
 console.log(nprogress)
@@ -14,6 +15,10 @@ const requests = axios.create({
 // 添加请求拦截器
 requests.interceptors.request.use(function (config) {
   nprogress.start();
+
+  if (store.state.shopcart.USER_ID) {
+    config.headers.userTempId = store.state.shopcart.USER_ID;
+}
   // 在发送请求之前做些什么
   return config;
 }, function (error) {

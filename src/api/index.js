@@ -25,3 +25,6 @@ export const reqDetail = (skuId)=>request({url:`/item/${skuId}`,method:'get'});
 
 // 添加购物车
 export const reqAddOrUpdateCart = (skuId,skuNum)=>request({url:`/cart/addToCart/${skuId}/${skuNum}`,method:'post'});
+
+//获取用户购物车的数据接口
+export const reqShopCart = ()=>request({url:'/cart/cartList',method:'get'});

@@ -4,6 +4,7 @@ import Search from '@/views/Search'
 import Register from '@/views/Register'
 import Detail from '@/views/detail'
 import AddCartSuccess from '@/views/addCartSuccess'
+import ShopCart from '@/views/shopCart'
 export default [
     {
         path: '/home',
@@ -32,6 +33,10 @@ export default [
     {
         path: '/addcartsuccess',
         component: AddCartSuccess
+    },
+    {
+        path: '/shopcart',
+        component: ShopCart
     },
     {
         path: "*",
